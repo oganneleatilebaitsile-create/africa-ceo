@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Africa CEO</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .logo {
+      width: min(330px, 92%);
+      border-radius: 15px;
+    }
+
+    header p {
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin: 15px 0;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+    }
+
+    input,
+    textarea,
+    button {
+      width: 100%;
+      padding: 13px;
+      margin: 7px 0;
+      border-radius: 10px;
+      border: 1px solid #d5dbe5;
+      font-size: 16px;
+    }
+
+    button {
+      background: #111827;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: #eef2ff;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #answer {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      margin-top: 15px;
+    }
+
+    @media(max-width:600px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <img
+    class="logo"
+    src="africa-ceo-logo.png"
+    alt="Africa CEO Logo"
+  >
+
+  <h1>AFRICA CEO</h1>
+
+  <p>
+    AI-Powered Business Operating System for African Small Businesses
+  </p>
+
+</header>
+
+<main>
+
+  <div class="card">
+
+    <h2>🏢 Business Setup</h2>
+
+    <input
+      id="business"
+      value="Tlebros Pizza Cabin"
+      placeholder="Business name"
+    >
+
+    <input
+      id="type"
+      value="Food Business"
+      placeholder="Business type"
+    >
+
+    <input
+      id="country"
+      value="Botswana"
+      placeholder="Country"
+    >
+
+    <input
+      id="target"
+      type="number"
+      value="10000"
+      placeholder="Monthly sales target"
+    >
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>📊 Quick Numbers</h2>
+
+    <div class="stats">
+
+      <div class="stat">
+        <b>Sales</b>
+        <br>
+        P<span id="sales">0</span>
+      </div>
+
+      <div class="stat">
+        <b>Customers</b>
+        <br>
+        <span id="customers">0</span>
+      </div>
+
+      <div class="stat">
+        <b>Target</b>
+        <br>
+        P<span id="targetShow">10000</span>
+      </div>
+
+    </div>
+
+    <input
+      id="sale"
+      type="number"
+      placeholder="Add today's sale (P)"
+    >
+
+    <button onclick="addSale()">
+      Add Sale
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>🤖 Ask Africa CEO</h2>
+
+    <textarea
+      id="question"
+      rows="4"
+      placeholder="Example: How can I increase my sales this week?"
+    ></textarea>
+
+    <button onclick="askCEO()">
+      Ask AI CEO
+    </button>
+
+    <p id="status"></p>
+
+    <div id="answer"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>📣 Marketing</h2>
+
+    <button onclick="marketing()">
+      Create 7-Day Marketing Campaign
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>⚡ JARVIS — Coming Next</h2>
+
+    <p>
+      Your future AI executive assistant for planning,
+      automation, marketing, customer management and
+      business growth.
+    </p>
+
+  </div>
+
+</main>
+
+
+<script>
+
+let sales = Number(
+  localStorage.getItem("sales") || 0
+);
+
+
+function render() {
+
+  document.getElementById("sales").textContent =
+    sales.toFixed(2);
+
+  document.getElementById("targetShow").textContent =
+    Number(
+      document.getElementById("target").value || 0
+    ).toLocaleString();
+
+}
+
+
+document
+  .getElementById("target")
+  .addEventListener("input", render);
+
+
+function addSale() {
+
+  const amount =
+    Number(
+      document.getElementById("sale").value
+    );
+
+  if (!amount) return;
+
+  sales += amount;
+
+  localStorage.setItem(
+    "sales",
+    sales
+  );
+
+  document.getElementById("sale").value = "";
+
+  render();
+
+}
+
+
+function askCEO() {
+
+  const question =
+    document.getElementById("question").value.trim();
+
+  const answer =
+    document.getElementById("answer");
+
+  if (!question) {
+
+    answer.textContent =
+      "Please enter a question.";
+
+    return;
+
+  }
+
+
+  answer.textContent =
+    "Africa CEO AI connection will be activated in the next step.\n\nYour question:\n" +
+    question;
+
+}
+
+
+function marketing() {
+
+  document.getElementById("question").value =
+    "Create a 7-day marketing campaign to increase sales for my business.";
+
+  askCEO();
+
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>
