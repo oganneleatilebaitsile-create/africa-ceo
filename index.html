@@ -284,7 +284,7 @@ function addSale() {
 }
 
 
-function askCEO() {
+async function askCEO() {
 
   const question =
     document.getElementById("question").value.trim();
@@ -293,13 +293,45 @@ function askCEO() {
     document.getElementById("answer");
 
   if (!question) {
+    answer.textContent = "Please enter a question.";
+    return;
+  }
+
+  answer.textContent = "Africa CEO is thinking...";
+
+  try {
+
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: question,
+        business: {
+          name: "Tlebros Pizza Cabin",
+          type: "Food Business",
+          country: "Botswana",
+          monthlyTarget: 10000
+        }
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed.");
+    }
+
+    answer.textContent = data.answer;
+
+  } catch (error) {
 
     answer.textContent =
-      "Please enter a question.";
-
-    return;
+      "Africa CEO error: " + error.message;
 
   }
+}
 
 
   answer.textContent =
