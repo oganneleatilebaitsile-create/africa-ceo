@@ -1,359 +1,307 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+export default async function handler(req, res) {
 
-  <title>Africa CEO</title>
+  /*
+    AFRICA CEO
+    AI BUSINESS ADVISOR
+    Vercel Serverless Function
+  */
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
-    }
+  // Only allow POST requests
+  if (req.method !== "POST") {
 
-    header {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-    }
+    return res.status(405).json({
 
-    .logo {
-      width: min(330px, 92%);
-      border-radius: 15px;
-    }
+      error:
+        "Method not allowed."
 
-    header p {
-      margin-bottom: 0;
-    }
+    });
 
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 18px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 18px;
-      margin: 15px 0;
-      box-shadow: 0 3px 14px rgba(0,0,0,0.08);
-    }
-
-    input,
-    textarea,
-    button {
-      width: 100%;
-      padding: 13px;
-      margin: 7px 0;
-      border-radius: 10px;
-      border: 1px solid #d5dbe5;
-      font-size: 16px;
-    }
-
-    button {
-      background: #111827;
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .stat {
-      background: #eef2ff;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    #answer {
-      white-space: pre-wrap;
-      line-height: 1.6;
-      margin-top: 15px;
-    }
-
-    @media(max-width:600px) {
-      .stats {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-
-  <img
-    class="logo"
-    src="africa-ceo-logo.png"
-    alt="Africa CEO Logo"
-  >
-
-  <h1>AFRICA CEO</h1>
-
-  <p>
-    AI-Powered Business Operating System for African Small Businesses
-  </p>
-
-</header>
-
-<main>
-
-  <div class="card">
-
-    <h2>🏢 Business Setup</h2>
-
-    <input
-      id="business"
-      value="Tlebros Pizza Cabin"
-      placeholder="Business name"
-    >
-
-    <input
-      id="type"
-      value="Food Business"
-      placeholder="Business type"
-    >
-
-    <input
-      id="country"
-      value="Botswana"
-      placeholder="Country"
-    >
-
-    <input
-      id="target"
-      type="number"
-      value="10000"
-      placeholder="Monthly sales target"
-    >
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📊 Quick Numbers</h2>
-
-    <div class="stats">
-
-      <div class="stat">
-        <b>Sales</b>
-        <br>
-        P<span id="sales">0</span>
-      </div>
-
-      <div class="stat">
-        <b>Customers</b>
-        <br>
-        <span id="customers">0</span>
-      </div>
-
-      <div class="stat">
-        <b>Target</b>
-        <br>
-        P<span id="targetShow">10000</span>
-      </div>
-
-    </div>
-
-    <input
-      id="sale"
-      type="number"
-      placeholder="Add today's sale (P)"
-    >
-
-    <button onclick="addSale()">
-      Add Sale
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>🤖 Ask Africa CEO</h2>
-
-    <textarea
-      id="question"
-      rows="4"
-      placeholder="Example: How can I increase my sales this week?"
-    ></textarea>
-
-    <button onclick="askCEO()">
-      Ask AI CEO
-    </button>
-
-    <p id="status"></p>
-
-    <div id="answer"></div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📣 Marketing</h2>
-
-    <button onclick="marketing()">
-      Create 7-Day Marketing Campaign
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>⚡ JARVIS — Coming Next</h2>
-
-    <p>
-      Your future AI executive assistant for planning,
-      automation, marketing, customer management and
-      business growth.
-    </p>
-
-  </div>
-
-</main>
-
-
-<script>
-
-let sales = Number(
-  localStorage.getItem("sales") || 0
-);
-
-
-function render() {
-
-  document.getElementById("sales").textContent =
-    sales.toFixed(2);
-
-  document.getElementById("targetShow").textContent =
-    Number(
-      document.getElementById("target").value || 0
-    ).toLocaleString();
-
-}
-
-
-document
-  .getElementById("target")
-  .addEventListener("input", render);
-
-
-function addSale() {
-
-  const amount =
-    Number(
-      document.getElementById("sale").value
-    );
-
-  if (!amount) return;
-
-  sales += amount;
-
-  localStorage.setItem(
-    "sales",
-    sales
-  );
-
-  document.getElementById("sale").value = "";
-
-  render();
-
-}
-
-
-async function askCEO() {
-
-  const question =
-    document.getElementById("question").value.trim();
-
-  const answer =
-    document.getElementById("answer");
-
-  if (!question) {
-    answer.textContent = "Please enter a question.";
-    return;
   }
 
-  answer.textContent = "Africa CEO is thinking...";
 
   try {
 
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: question,
-        business: {
-          name: "Tlebros Pizza Cabin",
-          type: "Food Business",
-          country: "Botswana",
-          monthlyTarget: 10000
-        }
-      })
-    });
 
-    const data = await response.json();
+    // Get information sent from the website
+    const {
+      message,
+      business
+    } = req.body || {};
 
-    if (!response.ok) {
-      throw new Error(data.error || "AI request failed.");
+
+    // Make sure a question exists
+    if (!message) {
+
+      return res.status(400).json({
+
+        error:
+          "Please provide a business question."
+
+      });
+
     }
 
-    answer.textContent = data.answer;
+
+    // Read the secret API key from Vercel
+    const apiKey =
+      process.env.OPENAI_API_KEY;
+
+
+    // Stop if the API key is missing
+    if (!apiKey) {
+
+      return res.status(500).json({
+
+        error:
+          "OPENAI_API_KEY is not configured in Vercel."
+
+      });
+
+    }
+
+
+    /*
+      AFRICA CEO SYSTEM INSTRUCTIONS
+    */
+
+    const instructions = `
+
+You are AFRICA CEO.
+
+You are an AI executive business advisor
+designed to help African small businesses
+start, operate, market, grow and scale.
+
+Your job is to think like a practical
+business CEO, strategist, marketing manager,
+sales manager and operations advisor.
+
+IMPORTANT RULES:
+
+1. Give practical answers.
+
+2. Focus on actions the business owner
+   can actually take.
+
+3. Consider African market realities.
+
+4. When appropriate, consider Botswana
+   and Southern African business conditions.
+
+5. Avoid unnecessary corporate jargon.
+
+6. Explain complicated ideas simply.
+
+7. Prioritize low-cost and practical
+   strategies for small businesses.
+
+8. When discussing marketing, give
+   specific content ideas.
+
+9. When discussing sales, give
+   specific actions.
+
+10. When discussing business growth,
+    provide measurable targets.
+
+11. If the user asks for a plan,
+    organize it into clear steps.
+
+12. If useful, provide:
+    - Today
+    - This week
+    - This month
+    - Long-term
+
+13. Do not pretend you performed actions
+    that you cannot actually perform.
+
+14. Be honest when information is missing.
+
+15. The goal is to help the business owner
+    make better decisions and execute faster.
+
+BUSINESS INFORMATION:
+
+${JSON.stringify(
+  business || {},
+  null,
+  2
+)}
+
+`;
+
+
+    /*
+      Send request to OpenAI Responses API
+    */
+
+    const response =
+      await fetch(
+        "https://api.openai.com/v1/responses",
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Content-Type":
+              "application/json",
+
+            "Authorization":
+              `Bearer ${apiKey}`
+
+          },
+
+          body:
+            JSON.stringify({
+
+              model:
+                "gpt-5.6-luna",
+
+              instructions:
+                instructions,
+
+              input:
+                message,
+
+              max_output_tokens:
+                1000
+
+            })
+
+        }
+      );
+
+
+    /*
+      Convert OpenAI response
+      into JSON
+    */
+
+    const data =
+      await response.json();
+
+
+    /*
+      Handle OpenAI errors
+    */
+
+    if (!response.ok) {
+
+      console.error(
+        "OpenAI error:",
+        data
+      );
+
+
+      return res.status(
+        response.status
+      ).json({
+
+        error:
+          data?.error?.message ||
+          "OpenAI request failed."
+
+      });
+
+    }
+
+
+    /*
+      Return AI answer
+    */
+
+    const answer =
+      data.output_text ||
+      extractOutputText(data);
+
+
+    return res.status(200).json({
+
+      answer:
+        answer ||
+        "No response was returned by the AI CEO."
+
+    });
+
 
   } catch (error) {
 
-    answer.textContent =
-      "Africa CEO error: " + error.message;
+
+    console.error(
+      "Africa CEO server error:",
+      error
+    );
+
+
+    return res.status(500).json({
+
+      error:
+        error.message ||
+        "Africa CEO server error."
+
+    });
 
   }
-}
-
-
-  answer.textContent =
-    "Africa CEO AI connection will be activated in the next step.\n\nYour question:\n" +
-    question;
 
 }
 
 
-function marketing() {
+/*
+  Backup extractor in case
+  output_text is not available.
+*/
 
-  document.getElementById("question").value =
-    "Create a 7-day marketing campaign to increase sales for my business.";
+function extractOutputText(data) {
 
-  askCEO();
+  try {
+
+    const output =
+      data?.output || [];
+
+
+    let text = "";
+
+
+    for (
+      const item of output
+    ) {
+
+      if (
+        item.type === "message" &&
+        Array.isArray(item.content)
+      ) {
+
+        for (
+          const content of item.content
+        ) {
+
+          if (
+            content.type === "output_text"
+          ) {
+
+            text +=
+              content.text || "";
+
+          }
+
+        }
+
+      }
+
+    }
+
+
+    return text.trim();
+
+
+  } catch (error) {
+
+    return "";
+
+  }
 
 }
-
-
-render();
-
-</script>
-
-</body>
-</html>
