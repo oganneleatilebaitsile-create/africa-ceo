@@ -86,13 +86,10 @@ ${JSON.stringify(business || {}, null, 2)}
     });
 
   } catch (error) {
-
     return res.status(500).json({
       error:
         error.message ||
         "Africa CEO server error."
     });
-
   }
         }
-
