@@ -1,307 +1,817 @@
-export default async function handler(req, res) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  /*
-    AFRICA CEO
-    AI BUSINESS ADVISOR
-    Vercel Serverless Function
-  */
+  <title>Africa CEO | AI Business Operating System</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080808;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid #333;
+      padding: 20px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .brand h1 {
+      font-size: 25px;
+      letter-spacing: 2px;
+    }
+
+    .gold {
+      color: #d4af37;
+    }
+
+    .tagline {
+      color: #aaa;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 0 35px;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      font-size: clamp(40px, 8vw, 70px);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #bbb;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      background: #121212;
+      border: 1px solid #333;
+      border-radius: 18px;
+      padding: 25px;
+    }
+
+    .card h3 {
+      color: #d4af37;
+      margin-bottom: 20px;
+      font-size: 21px;
+    }
+
+    label {
+      display: block;
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      background: #080808;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 9px;
+      padding: 13px;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
+    .primary {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      background: #d4af37;
+      color: #000;
+      font-size: 15px;
+    }
+
+    .primary:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .secondary {
+      padding: 11px;
+      border: 1px solid #444;
+      background: #1b1b1b;
+      color: white;
+    }
+
+    .secondary:hover {
+      border-color: #d4af37;
+      color: #d4af37;
+    }
+
+    .quick {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .answer {
+      background: #080808;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 18px;
+      min-height: 220px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+
+    .thinking {
+      color: #d4af37;
+    }
+
+    .error {
+      color: #ff7777;
+    }
+
+    .status {
+      color: #888;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+
+    .feature {
+      background: #121212;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .feature h4 {
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .jarvis {
+      background: #111;
+      border: 1px solid #d4af37;
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 50px;
+    }
+
+    .jarvis h3 {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    .jarvis p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    footer {
+      border-top: 1px solid #333;
+      padding: 25px;
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .quick {
+        grid-template-columns: 1fr;
+      }
+
+      .brand h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="brand">
+
+      <img
+        src="africa-ceo-logo.png"
+        alt="Africa CEO logo"
+      >
+
+      <div>
+        <h1>
+          AFRICA <span class="gold">CEO</span>
+        </h1>
+
+        <div class="tagline">
+          AI-POWERED BUSINESS OPERATING SYSTEM
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
 
 
-  // Only allow POST requests
-  if (req.method !== "POST") {
+<main>
 
-    return res.status(405).json({
+  <section class="hero container">
 
-      error:
-        "Method not allowed."
+    <div class="badge">
+      BUILT FOR AFRICAN SMALL BUSINESSES
+    </div>
 
-    });
+    <h2>
+      Your AI <span class="gold">CEO</span>
+    </h2>
+
+    <p>
+      Plan your business, grow your sales,
+      automate repetitive work and build
+      toward a global African business.
+    </p>
+
+  </section>
+
+
+  <section class="container dashboard">
+
+    <!-- BUSINESS SETUP -->
+
+    <div class="card">
+
+      <h3>Business Setup</h3>
+
+      <div class="field">
+        <label>Business Name</label>
+
+        <input
+          id="businessName"
+          value="Tlebros Pizza Cabin"
+        >
+      </div>
+
+
+      <div class="field">
+        <label>Business Type</label>
+
+        <select id="businessType">
+
+          <option>Food Business</option>
+          <option>Retail</option>
+          <option>Beauty</option>
+          <option>Fashion</option>
+          <option>Agriculture</option>
+          <option>Technology</option>
+          <option>Professional Services</option>
+          <option>Other</option>
+
+        </select>
+      </div>
+
+
+      <div class="field">
+        <label>Country</label>
+
+        <input
+          id="country"
+          value="Botswana"
+        >
+      </div>
+
+
+      <div class="field">
+        <label>Monthly Sales Target</label>
+
+        <input
+          id="monthlyTarget"
+          type="number"
+          value="10000"
+        >
+      </div>
+
+
+      <button
+        class="primary"
+        onclick="saveBusiness()"
+      >
+        Save Business
+      </button>
+
+      <div
+        id="saveStatus"
+        class="status"
+      ></div>
+
+    </div>
+
+
+    <!-- AI CEO -->
+
+    <div class="card">
+
+      <h3>Ask Africa CEO</h3>
+
+      <div class="field">
+
+        <label>
+          Ask your AI CEO a business question
+        </label>
+
+        <textarea
+          id="question"
+          placeholder="Example: How can I increase my sales this week?"
+        ></textarea>
+
+      </div>
+
+
+      <button
+        id="askButton"
+        class="primary"
+        onclick="askCEO()"
+      >
+        Ask AI CEO
+      </button>
+
+
+      <div class="quick">
+
+        <button
+          class="secondary"
+          onclick="quickQuestion('Create a 7-day marketing campaign to increase my sales.')"
+        >
+          Marketing Plan
+        </button>
+
+        <button
+          class="secondary"
+          onclick="quickQuestion('Give me a practical plan to increase my sales this week.')"
+        >
+          Increase Sales
+        </button>
+
+        <button
+          class="secondary"
+          onclick="quickQuestion('Give me 10 practical ways to attract new customers.')"
+        >
+          Get Customers
+        </button>
+
+        <button
+          class="secondary"
+          onclick="quickQuestion('Create a simple 30-day growth strategy for my business.')"
+        >
+          Business Strategy
+        </button>
+
+      </div>
+
+
+      <div
+        id="answer"
+        class="answer"
+      >
+        Your AI CEO is ready.
+
+        Ask a question to begin.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section class="container">
+
+    <div class="features">
+
+      <div class="feature">
+        <h4>PLAN</h4>
+        <p>
+          Turn your business goals into
+          practical action plans.
+        </p>
+      </div>
+
+      <div class="feature">
+        <h4>GROW</h4>
+        <p>
+          Find marketing and sales
+          opportunities.
+        </p>
+      </div>
+
+      <div class="feature">
+        <h4>AUTOMATE</h4>
+        <p>
+          Connect AI and automation
+          to repetitive tasks.
+        </p>
+      </div>
+
+      <div class="feature">
+        <h4>GO GLOBAL</h4>
+        <p>
+          Build systems that can reach
+          customers beyond Africa.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- JARVIS -->
+
+  <section class="container">
+
+    <div class="jarvis">
+
+      <h3>
+        JARVIS
+        <span class="gold">
+          Executive AI
+        </span>
+      </h3>
+
+      <p>
+        The future version of Africa CEO
+        will connect your business tools,
+        customer management, marketing,
+        automation and reporting into one
+        intelligent executive system.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  AFRICA CEO © 2026
+
+  <br><br>
+
+  AI-Powered Business Operating System
+  for African Small Businesses
+
+</footer>
+
+
+<script>
+
+/* ================================
+   GET BUSINESS INFORMATION
+================================ */
+
+function getBusiness() {
+
+  return {
+    name: document
+      .getElementById("businessName")
+      .value
+      .trim(),
+
+    type: document
+      .getElementById("businessType")
+      .value,
+
+    country: document
+      .getElementById("country")
+      .value
+      .trim(),
+
+    monthlyTarget: Number(
+      document
+        .getElementById("monthlyTarget")
+        .value
+    )
+  };
+
+}
+
+
+/* ================================
+   SAVE BUSINESS
+================================ */
+
+function saveBusiness() {
+
+  const business = getBusiness();
+
+  localStorage.setItem(
+    "africaCEO_business",
+    JSON.stringify(business)
+  );
+
+  document
+    .getElementById("saveStatus")
+    .textContent =
+      "Business information saved.";
+
+}
+
+
+/* ================================
+   LOAD SAVED BUSINESS
+================================ */
+
+function loadBusiness() {
+
+  const saved =
+    localStorage.getItem(
+      "africaCEO_business"
+    );
+
+  if (!saved) {
+    return;
+  }
+
+  try {
+
+    const business =
+      JSON.parse(saved);
+
+    if (business.name) {
+      document
+        .getElementById("businessName")
+        .value = business.name;
+    }
+
+    if (business.type) {
+      document
+        .getElementById("businessType")
+        .value = business.type;
+    }
+
+    if (business.country) {
+      document
+        .getElementById("country")
+        .value = business.country;
+    }
+
+    if (business.monthlyTarget) {
+      document
+        .getElementById("monthlyTarget")
+        .value =
+          business.monthlyTarget;
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Saved business data could not be loaded."
+    );
+
+  }
+
+}
+
+
+/* ================================
+   ASK AFRICA CEO
+================================ */
+
+async function askCEO() {
+
+  const question =
+    document
+      .getElementById("question")
+      .value
+      .trim();
+
+  const answer =
+    document
+      .getElementById("answer");
+
+  const button =
+    document
+      .getElementById("askButton");
+
+
+  if (!question) {
+
+    answer.className =
+      "answer error";
+
+    answer.textContent =
+      "Please enter a business question.";
+
+    return;
 
   }
 
 
+  const business =
+    getBusiness();
+
+
+  saveBusiness();
+
+
+  answer.className =
+    "answer thinking";
+
+  answer.textContent =
+    "Africa CEO is thinking...";
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "AI CEO is thinking...";
+
+
   try {
-
-
-    // Get information sent from the website
-    const {
-      message,
-      business
-    } = req.body || {};
-
-
-    // Make sure a question exists
-    if (!message) {
-
-      return res.status(400).json({
-
-        error:
-          "Please provide a business question."
-
-      });
-
-    }
-
-
-    // Read the secret API key from Vercel
-    const apiKey =
-      process.env.OPENAI_API_KEY;
-
-
-    // Stop if the API key is missing
-    if (!apiKey) {
-
-      return res.status(500).json({
-
-        error:
-          "OPENAI_API_KEY is not configured in Vercel."
-
-      });
-
-    }
-
-
-    /*
-      AFRICA CEO SYSTEM INSTRUCTIONS
-    */
-
-    const instructions = `
-
-You are AFRICA CEO.
-
-You are an AI executive business advisor
-designed to help African small businesses
-start, operate, market, grow and scale.
-
-Your job is to think like a practical
-business CEO, strategist, marketing manager,
-sales manager and operations advisor.
-
-IMPORTANT RULES:
-
-1. Give practical answers.
-
-2. Focus on actions the business owner
-   can actually take.
-
-3. Consider African market realities.
-
-4. When appropriate, consider Botswana
-   and Southern African business conditions.
-
-5. Avoid unnecessary corporate jargon.
-
-6. Explain complicated ideas simply.
-
-7. Prioritize low-cost and practical
-   strategies for small businesses.
-
-8. When discussing marketing, give
-   specific content ideas.
-
-9. When discussing sales, give
-   specific actions.
-
-10. When discussing business growth,
-    provide measurable targets.
-
-11. If the user asks for a plan,
-    organize it into clear steps.
-
-12. If useful, provide:
-    - Today
-    - This week
-    - This month
-    - Long-term
-
-13. Do not pretend you performed actions
-    that you cannot actually perform.
-
-14. Be honest when information is missing.
-
-15. The goal is to help the business owner
-    make better decisions and execute faster.
-
-BUSINESS INFORMATION:
-
-${JSON.stringify(
-  business || {},
-  null,
-  2
-)}
-
-`;
-
-
-    /*
-      Send request to OpenAI Responses API
-    */
 
     const response =
       await fetch(
-        "https://api.openai.com/v1/responses",
+        "/api/chat",
         {
-
-          method:
-            "POST",
+          method: "POST",
 
           headers: {
-
             "Content-Type":
-              "application/json",
-
-            "Authorization":
-              `Bearer ${apiKey}`
-
+              "application/json"
           },
 
-          body:
-            JSON.stringify({
-
-              model:
-                "gpt-5.6-luna",
-
-              instructions:
-                instructions,
-
-              input:
-                message,
-
-              max_output_tokens:
-                1000
-
-            })
-
+          body: JSON.stringify({
+            message: question,
+            business: business
+          })
         }
       );
 
-
-    /*
-      Convert OpenAI response
-      into JSON
-    */
 
     const data =
       await response.json();
 
 
-    /*
-      Handle OpenAI errors
-    */
-
     if (!response.ok) {
 
-      console.error(
-        "OpenAI error:",
-        data
+      throw new Error(
+        data.error ||
+        "The AI server returned an error."
       );
 
-
-      return res.status(
-        response.status
-      ).json({
-
-        error:
-          data?.error?.message ||
-          "OpenAI request failed."
-
-      });
-
     }
 
 
-    /*
-      Return AI answer
-    */
+    answer.className =
+      "answer";
 
-    const answer =
-      data.output_text ||
-      extractOutputText(data);
-
-
-    return res.status(200).json({
-
-      answer:
-        answer ||
-        "No response was returned by the AI CEO."
-
-    });
+    answer.textContent =
+      data.answer ||
+      "The AI CEO returned no answer.";
 
 
   } catch (error) {
 
+    console.error(error);
 
-    console.error(
-      "Africa CEO server error:",
-      error
-    );
+    answer.className =
+      "answer error";
 
-
-    return res.status(500).json({
-
-      error:
-        error.message ||
-        "Africa CEO server error."
-
-    });
+    answer.textContent =
+      "Africa CEO Error:\n\n" +
+      error.message;
 
   }
+
+
+  button.disabled = false;
+
+  button.textContent =
+    "Ask AI CEO";
 
 }
 
 
-/*
-  Backup extractor in case
-  output_text is not available.
-*/
+/* ================================
+   QUICK QUESTIONS
+================================ */
 
-function extractOutputText(data) {
+function quickQuestion(question) {
 
-  try {
+  document
+    .getElementById("question")
+    .value = question;
 
-    const output =
-      data?.output || [];
-
-
-    let text = "";
-
-
-    for (
-      const item of output
-    ) {
-
-      if (
-        item.type === "message" &&
-        Array.isArray(item.content)
-      ) {
-
-        for (
-          const content of item.content
-        ) {
-
-          if (
-            content.type === "output_text"
-          ) {
-
-            text +=
-              content.text || "";
-
-          }
-
-        }
-
-      }
-
-    }
-
-
-    return text.trim();
-
-
-  } catch (error) {
-
-    return "";
-
-  }
+  askCEO();
 
 }
+
+
+/* ================================
+   START APP
+================================ */
+
+loadBusiness();
+
+</script>
+
+</body>
+  </html>
