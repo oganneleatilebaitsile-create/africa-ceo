@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Africa CEO | AI Business Operating System</title>
+  <title>Africa CEO | Business Command Center</title>
 
   <style>
     * {
@@ -15,37 +15,52 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #080808;
-      color: #ffffff;
+      background: #070707;
+      color: #fff;
       min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     .container {
       width: 92%;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: auto;
     }
 
     header {
-      border-bottom: 1px solid #333;
-      padding: 20px 0;
+      border-bottom: 1px solid #292929;
+      background: #0b0b0b;
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 14px;
     }
 
     .brand img {
-      width: 65px;
-      height: 65px;
+      width: 58px;
+      height: 58px;
       object-fit: contain;
       border-radius: 10px;
     }
 
     .brand h1 {
-      font-size: 25px;
+      font-size: 24px;
       letter-spacing: 2px;
     }
 
@@ -54,68 +69,223 @@
     }
 
     .tagline {
-      color: #aaa;
-      font-size: 12px;
-      margin-top: 5px;
+      color: #888;
+      font-size: 11px;
+      margin-top: 4px;
+      letter-spacing: 1px;
     }
 
     .hero {
-      text-align: center;
-      padding: 55px 0 35px;
+      padding: 35px 0 25px;
     }
 
-    .badge {
-      display: inline-block;
-      border: 1px solid #d4af37;
-      color: #d4af37;
-      padding: 8px 15px;
-      border-radius: 30px;
-      font-size: 12px;
-      margin-bottom: 20px;
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
     .hero h2 {
-      font-size: clamp(40px, 8vw, 70px);
-      margin-bottom: 20px;
+      font-size: clamp(28px, 5vw, 45px);
+      margin-bottom: 8px;
     }
 
     .hero p {
-      color: #bbb;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.6;
-      font-size: 17px;
+      color: #999;
+      line-height: 1.5;
     }
 
-    .dashboard {
+    .date-box {
+      border: 1px solid #333;
+      background: #111;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #aaa;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .gold-button {
+      border: none;
+      background: #d4af37;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 12px 18px;
+    }
+
+    .gold-button:hover {
+      opacity: 0.9;
+    }
+
+    .metrics {
       display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 25px;
-      margin-bottom: 50px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .metric {
+      background: #111;
+      border: 1px solid #2d2d2d;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .metric-label {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .metric-sub {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
     .card {
-      background: #121212;
-      border: 1px solid #333;
-      border-radius: 18px;
-      padding: 25px;
+      background: #111;
+      border: 1px solid #2d2d2d;
+      border-radius: 16px;
+      padding: 22px;
     }
 
     .card h3 {
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .card-title h3 {
+      margin-bottom: 0;
+    }
+
+    .small-button {
+      background: #1b1b1b;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+    }
+
+    .small-button:hover {
+      border-color: #d4af37;
       color: #d4af37;
+    }
+
+    .progress-area {
       margin-bottom: 20px;
-      font-size: 21px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: #222;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #d4af37;
+      border-radius: 20px;
+      transition: width 0.4s ease;
+    }
+
+    .business-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .summary-item {
+      background: #0a0a0a;
+      border: 1px solid #292929;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .summary-item span {
+      display: block;
+      color: #777;
+      font-size: 11px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .summary-item strong {
+      font-size: 16px;
+    }
+
+    .alert {
+      padding: 14px;
+      border-radius: 10px;
+      background: #0a0a0a;
+      border: 1px solid #333;
+      margin-bottom: 10px;
+      color: #bbb;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .alert strong {
+      color: #d4af37;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
     }
 
     label {
       display: block;
-      color: #aaa;
-      font-size: 13px;
+      color: #999;
+      font-size: 12px;
       margin-bottom: 7px;
-    }
-
-    .field {
-      margin-bottom: 17px;
     }
 
     input,
@@ -123,11 +293,11 @@
     textarea {
       width: 100%;
       background: #080808;
-      color: white;
-      border: 1px solid #444;
-      border-radius: 9px;
-      padding: 13px;
-      font-size: 15px;
+      color: #fff;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
     }
 
     input:focus,
@@ -138,58 +308,79 @@
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 110px;
       resize: vertical;
     }
 
-    button {
-      cursor: pointer;
-      border-radius: 9px;
-      font-weight: bold;
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .primary {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      background: #d4af37;
-      color: #000;
-      font-size: 15px;
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
-    .primary:disabled {
-      opacity: 0.6;
-      cursor: wait;
+    .task {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid #252525;
     }
 
-    .secondary {
-      padding: 11px;
-      border: 1px solid #444;
-      background: #1b1b1b;
-      color: white;
+    .task:last-child {
+      border-bottom: none;
     }
 
-    .secondary:hover {
+    .task input {
+      width: auto;
+    }
+
+    .task span {
+      color: #bbb;
+      font-size: 13px;
+    }
+
+    .task.done span {
+      text-decoration: line-through;
+      color: #666;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .quick-button {
+      padding: 13px;
+      background: #181818;
+      border: 1px solid #3a3a3a;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .quick-button:hover {
       border-color: #d4af37;
       color: #d4af37;
     }
 
-    .quick {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 15px 0;
-    }
-
-    .answer {
+    .ai-answer {
       background: #080808;
       border: 1px solid #333;
       border-radius: 10px;
-      padding: 18px;
-      min-height: 220px;
-      line-height: 1.65;
+      padding: 16px;
+      min-height: 180px;
+      line-height: 1.6;
       white-space: pre-wrap;
       overflow-wrap: break-word;
+      color: #ccc;
     }
 
     .thinking {
@@ -200,84 +391,65 @@
       color: #ff7777;
     }
 
-    .status {
-      color: #888;
-      font-size: 12px;
-      margin-top: 10px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 50px;
-    }
-
-    .feature {
-      background: #121212;
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 20px;
-    }
-
-    .feature h4 {
-      color: #d4af37;
-      margin-bottom: 8px;
-    }
-
-    .feature p {
-      color: #aaa;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
     .jarvis {
-      background: #111;
       border: 1px solid #d4af37;
+      background: linear-gradient(135deg, #111, #090909);
       border-radius: 18px;
       padding: 25px;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
 
     .jarvis h3 {
-      font-size: 26px;
-      margin-bottom: 12px;
+      font-size: 25px;
+      margin-bottom: 10px;
     }
 
     .jarvis p {
-      color: #aaa;
+      color: #999;
       line-height: 1.6;
     }
 
     footer {
-      border-top: 1px solid #333;
+      border-top: 1px solid #292929;
       padding: 25px;
       text-align: center;
-      color: #777;
-      font-size: 13px;
+      color: #666;
+      font-size: 12px;
     }
 
-    @media (max-width: 800px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-
-      .features {
+    @media (max-width: 900px) {
+      .metrics {
         grid-template-columns: 1fr 1fr;
       }
+
+      .dashboard-grid,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    @media (max-width: 500px) {
-      .features {
+    @media (max-width: 600px) {
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .date-box {
+        text-align: left;
+      }
+
+      .metrics {
         grid-template-columns: 1fr;
       }
 
-      .quick {
+      .input-grid,
+      .business-summary,
+      .quick-grid {
         grid-template-columns: 1fr;
       }
 
       .brand h1 {
-        font-size: 20px;
+        font-size: 19px;
       }
     }
   </style>
@@ -287,6 +459,7 @@
 
 <header>
   <div class="container">
+
     <div class="brand">
 
       <img
@@ -300,118 +473,549 @@
         </h1>
 
         <div class="tagline">
-          AI-POWERED BUSINESS OPERATING SYSTEM
+          AI BUSINESS OPERATING SYSTEM
         </div>
       </div>
 
     </div>
+
   </div>
 </header>
 
 
 <main>
 
-  <section class="hero container">
+  <!-- HERO -->
 
-    <div class="badge">
-      BUILT FOR AFRICAN SMALL BUSINESSES
+  <section class="container hero">
+
+    <div class="hero-top">
+
+      <div>
+
+        <h2>
+          CEO <span class="gold">Command Center</span>
+        </h2>
+
+        <p>
+          Manage your business, monitor performance
+          and make better decisions from one place.
+        </p>
+
+      </div>
+
+      <div class="date-box">
+        <div>BUSINESS STATUS</div>
+        <strong id="businessStatus">
+          ACTIVE
+        </strong>
+      </div>
+
     </div>
-
-    <h2>
-      Your AI <span class="gold">CEO</span>
-    </h2>
-
-    <p>
-      Plan your business, grow your sales,
-      automate repetitive work and build
-      toward a global African business.
-    </p>
 
   </section>
 
 
-  <section class="container dashboard">
+  <!-- METRICS -->
 
-    <!-- BUSINESS SETUP -->
+  <section class="container">
+
+    <div class="metrics">
+
+      <div class="metric">
+
+        <div class="metric-label">
+          Revenue
+        </div>
+
+        <div
+          class="metric-value"
+          id="revenueDisplay"
+        >
+          P0
+        </div>
+
+        <div class="metric-sub">
+          Current monthly revenue
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <div class="metric-label">
+          Expenses
+        </div>
+
+        <div
+          class="metric-value"
+          id="expenseDisplay"
+        >
+          P0
+        </div>
+
+        <div class="metric-sub">
+          Current monthly expenses
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <div class="metric-label">
+          Profit
+        </div>
+
+        <div
+          class="metric-value"
+          id="profitDisplay"
+        >
+          P0
+        </div>
+
+        <div class="metric-sub">
+          Revenue minus expenses
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <div class="metric-label">
+          Customers
+        </div>
+
+        <div
+          class="metric-value"
+          id="customersDisplay"
+        >
+          0
+        </div>
+
+        <div class="metric-sub">
+          Total customers
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MAIN DASHBOARD -->
+
+  <section class="container dashboard-grid">
+
+
+    <!-- BUSINESS PERFORMANCE -->
 
     <div class="card">
 
-      <h3>Business Setup</h3>
+      <div class="card-title">
+
+        <h3>
+          Business Performance
+        </h3>
+
+        <button
+          class="small-button"
+          onclick="saveDashboard()"
+        >
+          Save
+        </button>
+
+      </div>
+
+
+      <div class="progress-area">
+
+        <div class="progress-info">
+
+          <span>
+            Monthly Revenue Target
+          </span>
+
+          <span id="targetProgress">
+            0%
+          </span>
+
+        </div>
+
+        <div class="progress-bar">
+
+          <div
+            id="progressFill"
+            class="progress-fill"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="input-grid">
+
+        <div class="field">
+
+          <label>
+            Monthly Revenue
+          </label>
+
+          <input
+            id="revenueInput"
+            type="number"
+            value="0"
+            oninput="updateDashboard()"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Monthly Expenses
+          </label>
+
+          <input
+            id="expenseInput"
+            type="number"
+            value="0"
+            oninput="updateDashboard()"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Monthly Target
+          </label>
+
+          <input
+            id="targetInput"
+            type="number"
+            value="10000"
+            oninput="updateDashboard()"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Customers
+          </label>
+
+          <input
+            id="customersInput"
+            type="number"
+            value="0"
+            oninput="updateDashboard()"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Leads
+          </label>
+
+          <input
+            id="leadsInput"
+            type="number"
+            value="0"
+            oninput="updateDashboard()"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Business Type
+          </label>
+
+          <select id="typeInput">
+
+            <option>Food Business</option>
+            <option>Retail</option>
+            <option>Beauty</option>
+            <option>Fashion</option>
+            <option>Agriculture</option>
+            <option>Technology</option>
+            <option>Professional Services</option>
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="business-summary">
+
+        <div class="summary-item">
+
+          <span>
+            Profit Margin
+          </span>
+
+          <strong id="marginDisplay">
+            0%
+          </strong>
+
+        </div>
+
+
+        <div class="summary-item">
+
+          <span>
+            Leads
+          </span>
+
+          <strong id="leadsDisplay">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CEO ALERTS -->
+
+    <div class="card">
+
+      <div class="card-title">
+
+        <h3>
+          CEO Alerts
+        </h3>
+
+        <span class="gold">
+          LIVE
+        </span>
+
+      </div>
+
+
+      <div id="alerts">
+
+        <div class="alert">
+
+          <strong>
+            Welcome
+          </strong>
+
+          Enter your business numbers to activate
+          your CEO dashboard.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUSINESS PROFILE -->
+
+  <section class="container section-grid">
+
+
+    <div class="card">
+
+      <h3>
+        Business Profile
+      </h3>
+
 
       <div class="field">
-        <label>Business Name</label>
+
+        <label>
+          Business Name
+        </label>
 
         <input
           id="businessName"
           value="Tlebros Pizza Cabin"
         >
+
       </div>
 
 
       <div class="field">
-        <label>Business Type</label>
 
-        <select id="businessType">
-
-          <option>Food Business</option>
-          <option>Retail</option>
-          <option>Beauty</option>
-          <option>Fashion</option>
-          <option>Agriculture</option>
-          <option>Technology</option>
-          <option>Professional Services</option>
-          <option>Other</option>
-
-        </select>
-      </div>
-
-
-      <div class="field">
-        <label>Country</label>
+        <label>
+          Country
+        </label>
 
         <input
           id="country"
           value="Botswana"
         >
+
       </div>
 
 
       <div class="field">
-        <label>Monthly Sales Target</label>
 
-        <input
-          id="monthlyTarget"
-          type="number"
-          value="10000"
-        >
+        <label>
+          Main Business Goal
+        </label>
+
+        <textarea
+          id="businessGoal"
+          placeholder="Example: Reach P20,000 monthly sales."
+        ></textarea>
+
       </div>
 
 
       <button
-        class="primary"
-        onclick="saveBusiness()"
+        class="gold-button"
+        onclick="saveDashboard()"
       >
-        Save Business
+        Save Business Profile
       </button>
 
       <div
         id="saveStatus"
         class="status"
+        style="margin-top:10px;color:#888;font-size:12px;"
       ></div>
 
     </div>
 
 
-    <!-- AI CEO -->
+    <!-- TASKS -->
 
     <div class="card">
 
-      <h3>Ask Africa CEO</h3>
+      <div class="card-title">
+
+        <h3>
+          CEO Tasks
+        </h3>
+
+        <button
+          class="small-button"
+          onclick="clearTasks()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+
+      <div id="tasks">
+
+        <label class="task">
+
+          <input
+            type="checkbox"
+            onchange="taskChanged(this)"
+          >
+
+          <span>
+            Review today's sales
+          </span>
+
+        </label>
+
+
+        <label class="task">
+
+          <input
+            type="checkbox"
+            onchange="taskChanged(this)"
+          >
+
+          <span>
+            Contact potential customers
+          </span>
+
+        </label>
+
+
+        <label class="task">
+
+          <input
+            type="checkbox"
+            onchange="taskChanged(this)"
+          >
+
+          <span>
+            Publish today's marketing content
+          </span>
+
+        </label>
+
+
+        <label class="task">
+
+          <input
+            type="checkbox"
+            onchange="taskChanged(this)"
+          >
+
+          <span>
+            Follow up with leads
+          </span>
+
+        </label>
+
+
+        <label class="task">
+
+          <input
+            type="checkbox"
+            onchange="taskChanged(this)"
+          >
+
+          <span>
+            Review expenses
+          </span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- AI CEO -->
+
+  <section class="container section-grid">
+
+
+    <div class="card">
+
+      <h3>
+        Ask Africa <span class="gold">CEO</span>
+      </h3>
+
 
       <div class="field">
 
         <label>
-          Ask your AI CEO a business question
+          Ask your AI executive
         </label>
 
         <textarea
@@ -424,53 +1028,67 @@
 
       <button
         id="askButton"
-        class="primary"
+        class="gold-button"
         onclick="askCEO()"
+        style="width:100%;"
       >
         Ask AI CEO
       </button>
 
 
-      <div class="quick">
+      <br><br>
+
+
+      <div class="quick-grid">
 
         <button
-          class="secondary"
-          onclick="quickQuestion('Create a 7-day marketing campaign to increase my sales.')"
+          class="quick-button"
+          onclick="quickQuestion('Create a 7-day marketing campaign for my business.')"
         >
           Marketing Plan
         </button>
 
         <button
-          class="secondary"
-          onclick="quickQuestion('Give me a practical plan to increase my sales this week.')"
+          class="quick-button"
+          onclick="quickQuestion('Give me practical ways to increase sales this week.')"
         >
           Increase Sales
         </button>
 
         <button
-          class="secondary"
-          onclick="quickQuestion('Give me 10 practical ways to attract new customers.')"
+          class="quick-button"
+          onclick="quickQuestion('Give me 10 ways to attract new customers.')"
         >
           Get Customers
         </button>
 
         <button
-          class="secondary"
-          onclick="quickQuestion('Create a simple 30-day growth strategy for my business.')"
+          class="quick-button"
+          onclick="quickQuestion('Create a 30-day business growth strategy.')"
         >
-          Business Strategy
+          Growth Strategy
         </button>
 
       </div>
 
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        AI CEO Intelligence
+      </h3>
+
 
       <div
         id="answer"
-        class="answer"
+        class="ai-answer"
       >
         Your AI CEO is ready.
 
         Ask a question to begin.
+
       </div>
 
     </div>
@@ -478,43 +1096,48 @@
   </section>
 
 
-  <!-- FEATURES -->
+  <!-- QUICK ACTIONS -->
 
-  <section class="container">
+  <section class="container card" style="margin-bottom:25px;">
 
-    <div class="features">
+    <div class="card-title">
 
-      <div class="feature">
-        <h4>PLAN</h4>
-        <p>
-          Turn your business goals into
-          practical action plans.
-        </p>
-      </div>
+      <h3>
+        CEO Quick Actions
+      </h3>
 
-      <div class="feature">
-        <h4>GROW</h4>
-        <p>
-          Find marketing and sales
-          opportunities.
-        </p>
-      </div>
+    </div>
 
-      <div class="feature">
-        <h4>AUTOMATE</h4>
-        <p>
-          Connect AI and automation
-          to repetitive tasks.
-        </p>
-      </div>
 
-      <div class="feature">
-        <h4>GO GLOBAL</h4>
-        <p>
-          Build systems that can reach
-          customers beyond Africa.
-        </p>
-      </div>
+    <div class="quick-grid">
+
+      <button
+        class="quick-button"
+        onclick="setGoal()"
+      >
+        Set Monthly Goal
+      </button>
+
+      <button
+        class="quick-button"
+        onclick="addLead()"
+      >
+        Add Lead
+      </button>
+
+      <button
+        class="quick-button"
+        onclick="addCustomer()"
+      >
+        Add Customer
+      </button>
+
+      <button
+        class="quick-button"
+        onclick="saveDashboard()"
+      >
+        Save Dashboard
+      </button>
 
     </div>
 
@@ -535,11 +1158,21 @@
       </h3>
 
       <p>
-        The future version of Africa CEO
-        will connect your business tools,
-        customer management, marketing,
-        automation and reporting into one
+        The future evolution of Africa CEO will connect
+        your business tools, customers, marketing,
+        finances, automation and reporting into one
         intelligent executive system.
+      </p>
+
+      <br>
+
+      <p>
+        <strong class="gold">
+          Planned capabilities:
+        </strong>
+        strategy, marketing, sales intelligence,
+        customer management, automation,
+        business reporting and executive decision support.
       </p>
 
     </div>
@@ -563,255 +1196,67 @@
 
 <script>
 
-/* ================================
-   GET BUSINESS INFORMATION
-================================ */
+/* =====================================
+   GET NUMBER
+===================================== */
 
-function getBusiness() {
+function number(id) {
 
-  return {
-    name: document
-      .getElementById("businessName")
-      .value
-      .trim(),
-
-    type: document
-      .getElementById("businessType")
-      .value,
-
-    country: document
-      .getElementById("country")
-      .value
-      .trim(),
-
-    monthlyTarget: Number(
-      document
-        .getElementById("monthlyTarget")
-        .value
-    )
-  };
+  return Number(
+    document.getElementById(id).value
+  ) || 0;
 
 }
 
 
-/* ================================
-   SAVE BUSINESS
-================================ */
+/* =====================================
+   FORMAT CURRENCY
+===================================== */
 
-function saveBusiness() {
+function money(value) {
 
-  const business = getBusiness();
-
-  localStorage.setItem(
-    "africaCEO_business",
-    JSON.stringify(business)
-  );
-
-  document
-    .getElementById("saveStatus")
-    .textContent =
-      "Business information saved.";
+  return "P" + Number(value).toLocaleString();
 
 }
 
 
-/* ================================
-   LOAD SAVED BUSINESS
-================================ */
+/* =====================================
+   UPDATE DASHBOARD
+===================================== */
 
-function loadBusiness() {
+function updateDashboard() {
 
-  const saved =
-    localStorage.getItem(
-      "africaCEO_business"
-    );
+  const revenue =
+    number("revenueInput");
 
-  if (!saved) {
-    return;
-  }
+  const expenses =
+    number("expenseInput");
 
-  try {
+  const target =
+    number("targetInput");
 
-    const business =
-      JSON.parse(saved);
+  const customers =
+    number("customersInput");
 
-    if (business.name) {
-      document
-        .getElementById("businessName")
-        .value = business.name;
-    }
+  const leads =
+    number("leadsInput");
 
-    if (business.type) {
-      document
-        .getElementById("businessType")
-        .value = business.type;
-    }
-
-    if (business.country) {
-      document
-        .getElementById("country")
-        .value = business.country;
-    }
-
-    if (business.monthlyTarget) {
-      document
-        .getElementById("monthlyTarget")
-        .value =
-          business.monthlyTarget;
-    }
-
-  } catch (error) {
-
-    console.log(
-      "Saved business data could not be loaded."
-    );
-
-  }
-
-}
+  const profit =
+    revenue - expenses;
 
 
-/* ================================
-   ASK AFRICA CEO
-================================ */
+  let margin = 0;
 
-async function askCEO() {
+  if (revenue > 0) {
 
-  const question =
-    document
-      .getElementById("question")
-      .value
-      .trim();
-
-  const answer =
-    document
-      .getElementById("answer");
-
-  const button =
-    document
-      .getElementById("askButton");
-
-
-  if (!question) {
-
-    answer.className =
-      "answer error";
-
-    answer.textContent =
-      "Please enter a business question.";
-
-    return;
+    margin =
+      (profit / revenue) * 100;
 
   }
 
 
-  const business =
-    getBusiness();
+  let progress = 0;
 
+  if (target > 0) {
 
-  saveBusiness();
-
-
-  answer.className =
-    "answer thinking";
-
-  answer.textContent =
-    "Africa CEO is thinking...";
-
-
-  button.disabled = true;
-
-  button.textContent =
-    "AI CEO is thinking...";
-
-
-  try {
-
-    const response =
-      await fetch(
-        "/api/chat",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            message: question,
-            business: business
-          })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.error ||
-        "The AI server returned an error."
-      );
-
-    }
-
-
-    answer.className =
-      "answer";
-
-    answer.textContent =
-      data.answer ||
-      "The AI CEO returned no answer.";
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    answer.className =
-      "answer error";
-
-    answer.textContent =
-      "Africa CEO Error:\n\n" +
-      error.message;
-
-  }
-
-
-  button.disabled = false;
-
-  button.textContent =
-    "Ask AI CEO";
-
-}
-
-
-/* ================================
-   QUICK QUESTIONS
-================================ */
-
-function quickQuestion(question) {
-
-  document
-    .getElementById("question")
-    .value = question;
-
-  askCEO();
-
-}
-
-
-/* ================================
-   START APP
-================================ */
-
-loadBusiness();
-
-</script>
-
-</body>
-  </html>
+    progr
